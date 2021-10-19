@@ -22,7 +22,13 @@
         "symfony/swiftmailer-bundle": "^3.1",
         "symfony/polyfill-apcu": "^1.0",
         "sensio/framework-extra-bundle": "^3.0.2",
-        "incenteev/composer-parameter-handler": "^2.0"
+        "incenteev/composer-parameter-handler": "^2.0",
+        "symfony/flex": "^1.17",
+        "composer/package-versions-deprecated": "1.11.99.4",
+        "doctrine/doctrine-bundle": "^2.3",
+        "doctrine/doctrine-migrations-bundle": "^3.1",
+        "doctrine/orm": "^2.7",
+        "symfony/proxy-manager-bridge": "*"
     },
     "require-dev": {
         "symfony/phpunit-bridge": "^4.0"
