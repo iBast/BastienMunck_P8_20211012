@@ -15,6 +15,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class UserController extends AbstractController
 {
     private $manager;
+    const REDIRECTION_ROUTE = 'user_list';
 
     public function __construct(UserManager $manager)
     {
@@ -44,10 +45,10 @@ class UserController extends AbstractController
 
             $this->addFlash('success', "L'utilisateur a bien été ajouté.");
 
-            return $this->redirectToRoute('user_list');
+            return $this->redirectToRoute(self::REDIRECTION_ROUTE);
         }
 
-        return $this->render('user/create.html.twig', ['form' => $form->createView()]);
+        return $this->render('user/edit.html.twig', ['form' => $form->createView(), 'user' => $user]);
     }
 
     /**
@@ -65,7 +66,7 @@ class UserController extends AbstractController
 
             $this->addFlash('success', "L'utilisateur a bien été modifié");
 
-            return $this->redirectToRoute('user_list');
+            return $this->redirectToRoute(self::REDIRECTION_ROUTE);
         }
 
         return $this->render('user/edit.html.twig', ['form' => $form->createView(), 'user' => $user]);
