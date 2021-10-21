@@ -41,9 +41,7 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->manager->encode($user, $user->getPassword());
-            $this->manager->save($user);
-
-            $this->addFlash('success', "L'utilisateur a bien été ajouté.");
+            $this->manager->saveAndFlash($user, "L'utilisateur a bien été ajouté.");
 
             return $this->redirectToRoute(self::REDIRECTION_ROUTE);
         }
@@ -62,9 +60,7 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->manager->encode($user, $user->getPassword());
-            $this->manager->save($user);
-
-            $this->addFlash('success', "L'utilisateur a bien été modifié");
+            $this->manager->saveAndFlash($user, "L'utilisateur a bien été modifié");
 
             return $this->redirectToRoute(self::REDIRECTION_ROUTE);
         }
