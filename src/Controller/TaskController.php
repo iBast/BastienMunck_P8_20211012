@@ -5,12 +5,22 @@ namespace App\Controller;
 use App\Entity\Task;
 use App\Form\TaskType;
 
+use App\Manager\TaskManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class TaskController extends AbstractController
 {
+    private $manager;
+
+    const REDIRECT_ROUTE = 'task_list';
+
+    public function __construct(TaskManager $manager)
+    {
+        $this->manager = $manager;
+    }
+
     /**
      * @Route("/tasks", name="task_list")
      */
@@ -30,14 +40,9 @@ class TaskController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $this->manager->saveAndFlash($task, 'La tâche a été bien été ajoutée.');
 
-            $em->persist($task);
-            $em->flush();
-
-            $this->addFlash('success', 'La tâche a été bien été ajoutée.');
-
-            return $this->redirectToRoute('task_list');
+            return $this->redirectToRoute(self::REDIRECT_ROUTE);
         }
 
         return $this->render('task/create.html.twig', ['form' => $form->createView()]);
@@ -53,11 +58,9 @@ class TaskController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $this->manager->saveAndFlash($task, 'La tâche a bien été modifiée.');
 
-            $this->addFlash('success', 'La tâche a bien été modifiée.');
-
-            return $this->redirectToRoute('task_list');
+            return $this->redirectToRoute(self::REDIRECT_ROUTE);
         }
 
         return $this->render('task/edit.html.twig', [
@@ -72,11 +75,9 @@ class TaskController extends AbstractController
     public function toggleTaskAction(Task $task)
     {
         $task->toggle(!$task->isDone());
-        $this->getDoctrine()->getManager()->flush();
+        $this->manager->saveAndFlash($task, sprintf('La tâche %s a bien été marquée comme faite.', $task->getTitle()));
 
-        $this->addFlash('success', sprintf('La tâche %s a bien été marquée comme faite.', $task->getTitle()));
-
-        return $this->redirectToRoute('task_list');
+        return $this->redirectToRoute(self::REDIRECT_ROUTE);
     }
 
     /**
@@ -84,12 +85,10 @@ class TaskController extends AbstractController
      */
     public function deleteTaskAction(Task $task)
     {
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($task);
-        $em->flush();
+        $this->manager->remove($task);
 
         $this->addFlash('success', 'La tâche a bien été supprimée.');
 
-        return $this->redirectToRoute('task_list');
+        return $this->redirectToRoute(self::REDIRECT_ROUTE);
     }
 }
