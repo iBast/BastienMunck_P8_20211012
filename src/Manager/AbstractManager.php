@@ -12,4 +12,16 @@ abstract class AbstractManager
     {
         $this->entityManager = $entityManager;
     }
+
+    public function save($entity)
+    {
+        $this->entityManager->persist($entity);
+        $this->entityManager->flush();
+    }
+
+    public function remove($entity)
+    {
+        $this->entityManager->remove($entity);
+        $this->entityManager->flush();
+    }
 }

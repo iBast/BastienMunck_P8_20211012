@@ -5,14 +5,21 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
-use Symfony\Component\HttpFoundation\Request;
+use App\Manager\UserManager;
 
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserController extends AbstractController
 {
+    private $manager;
+
+    public function __construct(UserManager $manager)
+    {
+        $this->manager = $manager;
+    }
     /**
      * @Route("/users", name="user_list")
      */
@@ -24,7 +31,7 @@ class UserController extends AbstractController
     /**
      * @Route("/users/create", name="user_create")
      */
-    public function createAction(Request $request, UserPasswordEncoderInterface $encoder)
+    public function createAction(Request $request)
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -32,12 +39,8 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $password = $encoder->encodePassword($user, $user->getPassword());
-            $user->setPassword($password);
-
-            $em->persist($user);
-            $em->flush();
+            $this->manager->encode($user, $user->getPassword());
+            $this->manager->save($user);
 
             $this->addFlash('success', "L'utilisateur a bien été ajouté.");
 
@@ -57,10 +60,8 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $password = $this->get('security.password_encoder')->encodePassword($user, $user->getPassword());
-            $user->setPassword($password);
-
-            $this->getDoctrine()->getManager()->flush();
+            $this->manager->encode($user, $user->getPassword());
+            $this->manager->save($user);
 
             $this->addFlash('success', "L'utilisateur a bien été modifié");
 
