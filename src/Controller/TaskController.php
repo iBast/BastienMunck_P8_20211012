@@ -40,6 +40,7 @@ class TaskController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $task->setCreatedBy($this->getUser());
             $this->manager->saveAndFlash($task, 'La tâche a été bien été ajoutée.');
 
             return $this->redirectToRoute(self::REDIRECT_ROUTE);
