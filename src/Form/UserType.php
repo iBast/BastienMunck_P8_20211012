@@ -8,11 +8,20 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 
 class UserType extends AbstractType
 {
+    private $authorization;
+
+    public function __construct(AuthorizationChecker $authorizationChecker)
+    {
+        $this->authorization = $authorizationChecker;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -25,6 +34,14 @@ class UserType extends AbstractType
                 'second_options' => ['label' => 'Tapez le mot de passe à nouveau'],
             ])
             ->add('email', EmailType::class, ['label' => 'Adresse email']);
+
+        if ($this->authorization->isGranted('ROLE_ADMIN')) {
+            $builder->add('admin', CheckboxType::class, [
+                'label' => 'Administrateur',
+                'required' => false,
+                'mapped' => false
+            ]);
+        }
     }
 
     public function configureOptions(OptionsResolver $resolver)
