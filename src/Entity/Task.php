@@ -40,6 +40,11 @@ class Task
      */
     private $isDone;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="tasks")
+     */
+    private $createdBy;
+
     public function __construct()
     {
         $this->createdAt = new \Datetime();
@@ -89,5 +94,24 @@ class Task
     public function toggle($flag)
     {
         $this->isDone = $flag;
+    }
+
+    public function getCreatedBy(): ?User
+    {
+        if ($this->createdBy == null) {
+            $anon = new User;
+            $anon->setUsername('Anonymous user');
+            $anon->setEmail('none@anonymous.io');
+            $anon->setPassword('NOPASSWORDFORANONUSERS');
+            $this->createdBy = $anon;
+        }
+        return $this->createdBy;
+    }
+
+    public function setCreatedBy(?User $createdBy): self
+    {
+        $this->createdBy = $createdBy;
+
+        return $this;
     }
 }
