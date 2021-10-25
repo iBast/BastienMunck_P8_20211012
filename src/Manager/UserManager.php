@@ -22,4 +22,13 @@ class UserManager extends AbstractManager
         $hash = $this->encoder->encodePassword($user, $password);
         $user->setPassword($hash);
     }
+
+    public function setRole($form, User $user)
+    {
+        $isAdmin = $form->get('admin')->getData();
+        if ($isAdmin == true) {
+            $user->setRoles(['ROLE_ADMIN']);
+            return $user;
+        }
+    }
 }

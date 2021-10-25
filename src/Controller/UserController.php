@@ -41,6 +41,7 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->manager->encode($user, $user->getPassword());
+            $this->manager->setRole($form, $user);
             $this->manager->saveAndFlash($user, "L'utilisateur a bien été ajouté.");
 
             return $this->redirectToRoute(self::REDIRECTION_ROUTE);
