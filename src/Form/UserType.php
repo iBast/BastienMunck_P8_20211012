@@ -36,11 +36,22 @@ class UserType extends AbstractType
             ->add('email', EmailType::class, ['label' => 'Adresse email']);
 
         if ($this->authorization->isGranted('ROLE_ADMIN')) {
-            $builder->add('admin', CheckboxType::class, [
-                'label' => 'Administrateur',
-                'required' => false,
-                'mapped' => false
-            ]);
+            if (in_array('ROLE_ADMIN', $builder->getData()->getRoles())) {
+                $builder->add('admin', CheckboxType::class, [
+                    'label' => 'Administrateur',
+                    'required' => false,
+                    'mapped' => false,
+                    'attr' => [
+                        'checked' => 'checked'
+                    ]
+                ]);
+            } else {
+                $builder->add('admin', CheckboxType::class, [
+                    'label' => 'Administrateur',
+                    'required' => false,
+                    'mapped' => false
+                ]);
+            }
         }
     }
 
