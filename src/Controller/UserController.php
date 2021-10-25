@@ -9,6 +9,7 @@ use App\Manager\UserManager;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -23,6 +24,7 @@ class UserController extends AbstractController
     }
     /**
      * @Route("/users", name="user_list")
+     *  @IsGranted("ROLE_ADMIN", message="Cette page est réservée aux admistrateurs")
      */
     public function listAction()
     {
