@@ -4,7 +4,13 @@
 {% endblock %}
 
 {% block body %}
-	<a href="{{ path('task_create') }}" class="btn btn-info pull-right">Créer une tâche</a>
+	<div class="row">
+		<a href="{{ path('task_list_done') }}" class="btn btn-info">Tâches terminées</a>
+		<a href="{{ path('task_list_todo') }}" class="btn btn-info">Tâches en cours</a>
+		<a href="{{ path('task_list') }}" class="btn btn-info">Voir toutes les tâches</a>
+		<a href="{{ path('task_create') }}" class="btn btn-info pull-right">Créer une tâche</a>
+	</div>
+	<br>
 	<div class="row">
 		{% for task in tasks %}
 			<div class="col-sm-4 col-lg-4 col-md-4">
@@ -26,6 +32,7 @@
 							<i>{{ task.createdBy.username }}</i>
 						</p>
 					</div>
+					<br>
 					<div>
 						<form action="{{ path('task_toggle', {'id' : task.id }) }}">
 							<button class="btn btn-success btn-sm pull-right">
