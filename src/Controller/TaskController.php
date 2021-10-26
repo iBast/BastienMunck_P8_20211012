@@ -23,11 +23,27 @@ class TaskController extends AbstractController
     }
 
     /**
-     * @Route("/tasks", name="task_list")
+     * @Route("/tasks/", name="task_list")
      */
     public function listAction()
     {
         return $this->render('task/list.html.twig', ['tasks' => $this->getDoctrine()->getRepository('App:Task')->findAll()]);
+    }
+
+    /**
+     * @Route("/tasks/done", name="task_list_done")
+     */
+    public function listDoneAction()
+    {
+        return $this->render('task/list.html.twig', ['tasks' => $this->getDoctrine()->getRepository('App:Task')->findBy(['isDone' => true])]);
+    }
+
+    /**
+     * @Route("/tasks/todo", name="task_list_todo")
+     */
+    public function listToDOAction()
+    {
+        return $this->render('task/list.html.twig', ['tasks' => $this->getDoctrine()->getRepository('App:Task')->findBy(['isDone' => false])]);
     }
 
     /**
@@ -79,7 +95,7 @@ class TaskController extends AbstractController
     public function toggleTaskAction(Task $task)
     {
         $task->toggle(!$task->isDone());
-        $this->manager->saveAndFlash($task, sprintf('La tâche %s a bien été marquée comme faite.', $task->getTitle()));
+        $this->manager->saveAndFlash($task, sprintf('Le status de la tâche %s a bien été modifié.', $task->getTitle()));
 
         return $this->redirectToRoute(self::REDIRECT_ROUTE);
     }
