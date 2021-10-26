@@ -6,6 +6,7 @@ use App\Entity\Task;
 use App\Form\TaskType;
 
 use App\Manager\TaskManager;
+use App\Security\TaskVoter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -35,6 +36,7 @@ class TaskController extends AbstractController
     public function createAction(Request $request)
     {
         $task = new Task();
+        $this->denyAccessUnlessGranted(TaskVoter::CREATE, $task);
         $form = $this->createForm(TaskType::class, $task);
 
         $form->handleRequest($request);
@@ -54,6 +56,7 @@ class TaskController extends AbstractController
      */
     public function editAction(Task $task, Request $request)
     {
+        $this->denyAccessUnlessGranted(TaskVoter::UPDATE, $task);
         $form = $this->createForm(TaskType::class, $task);
 
         $form->handleRequest($request);
@@ -86,6 +89,7 @@ class TaskController extends AbstractController
      */
     public function deleteTaskAction(Task $task)
     {
+        $this->denyAccessUnlessGranted(TaskVoter::DELETE, $task);
         $this->manager->remove($task);
 
         $this->addFlash('success', 'La tâche a bien été supprimée.');
