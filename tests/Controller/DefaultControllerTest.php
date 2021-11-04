@@ -2,11 +2,15 @@
 
 namespace App\Tests\Controller;
 
-use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class DefaultControllerTest extends TestCase
+class DefaultControllerTest extends WebTestCase
 {
-    public function testIndex()
+    public function testIndexNotConnected()
     {
+        $client = static::createClient();
+        $client->request('GET', '/');
+        $this->assertResponseStatusCodeSame(Response::HTTP_FOUND);
     }
 }

@@ -25,7 +25,10 @@ class UserManager extends AbstractManager
 
     public function setRole($form, User $user)
     {
-        $isAdmin = $form->get('admin')->getData();
+        $isAdmin = false;
+        if ($form->has('admin')) {
+            $isAdmin = $form->get('admin')->getData();
+        }
         if ($isAdmin == true) {
             $user->setRoles(['ROLE_ADMIN']);
             return $user;

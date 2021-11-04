@@ -16,7 +16,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class UserController extends AbstractController
 {
     private $manager;
-    const REDIRECTION_ROUTE = 'user_list';
+    const REDIRECTION_ROUTE = 'homepage';
 
     public function __construct(UserManager $manager)
     {
