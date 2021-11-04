@@ -45,6 +45,14 @@ class AppFixtures extends Fixture
             ->setCreatedBy($user);
         $manager->persist($task);
 
+        //Task created by admin
+        $task = new Task();
+        $task->setTitle('Task created by admin')
+            ->setContent('Content')
+            ->setCreatedAt(new DateTime())
+            ->setCreatedBy($admin);
+        $manager->persist($task);
+
         //Task without user
         $task = new Task();
         $task->setTitle('Task not linked to a user')
