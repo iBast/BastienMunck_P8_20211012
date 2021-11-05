@@ -29,7 +29,7 @@ class UserManager extends AbstractManager
         if ($form->has('admin')) {
             $isAdmin = $form->get('admin')->getData();
         }
-        if ($isAdmin == true) {
+        if ($isAdmin === true) {
             $user->setRoles(['ROLE_ADMIN']);
             return $user;
         }

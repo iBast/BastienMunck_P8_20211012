@@ -1,0 +1,17 @@
+{
+    "lang": "fr-FR",
+    "name": "TO DO List app",
+    "short_name": "To Do List",
+    "description": "Todo List, l'application vous permettant de gérer l'ensemble de vos tâches sans effort !",
+    "start_url": "https://localhost:8000/login",
+    "scope": "/",
+    "display": "fullscreen",
+    "background_color": "#fff",
+    "icons": [
+        {
+            "src": "favicon.ico",
+            "sizes": "48x48",
+            "type": "image/ico"
+        }
+    ]
+}

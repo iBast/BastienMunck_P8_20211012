@@ -101,7 +101,7 @@ class Task
 
     public function getCreatedBy(): ?User
     {
-        if ($this->createdBy == null) {
+        if ($this->createdBy === null) {
             $anon = new User;
             $anon->setUsername('Anonymous user');
             $anon->setEmail('none@anonymous.io');
