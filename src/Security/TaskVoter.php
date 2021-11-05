@@ -31,7 +31,7 @@ class TaskVoter extends Voter
 
         // only vote on Post objects inside this voter
         if ($attribute != self::CREATE) {
-            if (null !== $subject and !$subject instanceof Task) {
+            if (null !== $subject && !$subject instanceof Task) {
                 return false;
             }
         }
