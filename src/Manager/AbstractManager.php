@@ -3,17 +3,17 @@
 namespace App\Manager;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 abstract class AbstractManager
 {
     protected $entityManager;
-    protected $session;
+    protected $requestStack;
 
-    public function __construct(EntityManagerInterface $entityManager, SessionInterface $session)
+    public function __construct(EntityManagerInterface $entityManager, RequestStack $requestStack)
     {
         $this->entityManager = $entityManager;
-        $this->session = $session;
+        $this->requestStack = $requestStack;
     }
 
     public function save($entity)
@@ -25,7 +25,8 @@ abstract class AbstractManager
     public function saveAndFlash($entity, $message, $type = 'success')
     {
         $this->save($entity);
-        $this->session->getFlashBag()->add($type, $message);
+        $session = $this->requestStack->getSession();
+        $session->getFlashBag()->add($type, $message);
     }
 
     public function remove($entity)

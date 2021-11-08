@@ -4,22 +4,22 @@ namespace App\Manager;
 
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserManager extends AbstractManager
 {
     private $encoder;
 
-    public function __construct(EntityManagerInterface $entityManger, SessionInterface $session, UserPasswordEncoderInterface $encoder)
+    public function __construct(EntityManagerInterface $entityManger, RequestStack $requestStack, UserPasswordHasherInterface $encoder)
     {
-        parent::__construct($entityManger, $session);
+        parent::__construct($entityManger, $requestStack);
         $this->encoder = $encoder;
     }
 
     public function encode(User $user, $password)
     {
-        $hash = $this->encoder->encodePassword($user, $password);
+        $hash = $this->encoder->hashPassword($user, $password);
         $user->setPassword($hash);
     }
 
