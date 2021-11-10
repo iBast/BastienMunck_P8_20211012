@@ -5,17 +5,10 @@ namespace App\Tests\Entity;
 use App\Entity\Task;
 use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use Symfony\Bundle\MakerBundle\Validator;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class UserTest extends KernelTestCase
 {
-    private $validator;
-
-    public function __contruct(Validator $validator)
-    {
-        $this->validator = $validator;
-    }
-
     public function getUserEntity(): User
     {
         return (new User())
@@ -26,8 +19,7 @@ class UserTest extends KernelTestCase
 
     public function assertHasErrors(User $user, int $number = 0)
     {
-        self::bootKernel();
-        $errors = $this->validator->validate($user);
+        $errors = static::getContainer()->get('validator')->validate($user);
         $messages = [];
         /** @var ConstraintViolation $error */
         foreach ($errors as $error) {
