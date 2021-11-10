@@ -35,7 +35,7 @@ class SecurityControllerTest extends WebTestCase
             '_password' => 'wrong',
         ]);
         $client->followRedirect();
-        $this->assertSelectorTextContains('.alert.alert-danger', 'Invalid credentials.');
+        $this->assertSelectorExists('.alert.alert-danger');
     }
 
     public function testLogout()

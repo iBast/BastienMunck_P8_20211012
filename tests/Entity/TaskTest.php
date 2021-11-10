@@ -2,9 +2,9 @@
 
 namespace App\Tests\Entity;
 
+use DateTime;
 use App\Entity\Task;
 use App\Entity\User;
-use DateTime;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class TaskTest extends KernelTestCase
@@ -20,7 +20,7 @@ class TaskTest extends KernelTestCase
     public function assertHasErrors(Task $task, int $number)
     {
         self::bootKernel();
-        $errors = self::$container->get('validator')->validate($task);
+        $errors = static::getContainer()->get('validator')->validate($task);
         $messages = [];
         /** @var ConstraintViolation $error */
         foreach ($errors as $error) {
