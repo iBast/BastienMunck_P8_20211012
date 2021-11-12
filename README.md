@@ -9,7 +9,8 @@
 
 ### Requirements
 *The installation process has been tested on macOS 12.0.1 using a ZSH terminal*
-To folow the instructions make sure to have installed : 
+
+To follow the instructions make sure to have installed : 
 
 - [Composer](https://getcomposer.org)
 - [Symfony CLI](https://symfony.com/doc/current/cloud/getting-started#installing-the-cli-tool)
@@ -55,8 +56,10 @@ symfony console doctrine:fixtures:load --group=RootAdminFixtures
 ```
 
 You can now connect with :
+
 Username : root
-password : root
+
+Password : root
 
 ## Contribute
 To help the project you can contribute ! See how to [here](https://github.com/iBast/BastienMunck_P8_20211012/blob/main/CONTRIBUTING.md)
