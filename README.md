@@ -12,6 +12,7 @@ To folow the instructions make sure to have installed :
 - [Composer](https://getcomposer.org)
 - [Symfony CLI](https://symfony.com/doc/current/cloud/getting-started#installing-the-cli-tool)
 
+### Installation
 - Clone this repository & enter the new folder
 ```console 
 git clone https://github.com/iBast/BastienMunck_P8_20211012.git
@@ -19,7 +20,7 @@ cd BastienMunck_P8_20211012
 ```
 
 - Add a file *.env.local* with the following lines :
-``
+```xml
 APP_ENV={*dev*} for developpement {*prod*} for production
 APP_SECRET={YourAppSecret}
 DATABASE_URL="mysql://{*user*}:{*$password*}@{*host*}:{*port*}/{*DbName*}?serverVersion={*server version*}"
@@ -44,6 +45,11 @@ symfony console doctrine:database:create
 - update the database schema
 ```console
 symfony console doctrine:schema:update --force
+```
+
+- Create the first admin user
+```console
+symfony console doctrine:fixtures:load --group=RootAdminFixtures
 ```
 
 ## Contribute
