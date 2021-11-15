@@ -12,7 +12,7 @@ To access general informations please go to [Readme](https://github.com/iBast/Ba
 
 ## How to report a bug
 Everyone work hard to deliver a smooth application but it can happen the applicaiton not behave as expected.
-We track the bugs with [Github issues](https://docs.github.com/en/issues/tracking-your-work-with-issues/about-issues). To report the bug you can create a new issue using the [Bug report template]()
+We track the bugs with [Github issues](https://docs.github.com/en/issues/tracking-your-work-with-issues/about-issues). To report the bug you can create a new issue using the [Bug report template](https://github.com/iBast/BastienMunck_P8_20211012/issues/new?assignees=&labels=bug&template=---bug-report.md&title=%5BBUG%5D)
 
 - First name the bug and give general information about it
 - Describe it with many details as possible
@@ -21,6 +21,12 @@ We track the bugs with [Github issues](https://docs.github.com/en/issues/trackin
 - Add more content if needed
 
 ## How to request an enhancement
+If you want to help us improving the application with a stunning idea. You can use our [Feature request template](https://github.com/iBast/BastienMunck_P8_20211012/issues/new?assignees=&labels=&template=---feature-request.md&title=%5BFeature+Request%5D)
+
+- Tell us if your feature is problem related
+- Describe your feature
+- Let us know if you had considered alternative solutions
+- Anything else you judge relevant
 
 ## How to submit changes
 ### Environement detail 
