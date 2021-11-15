@@ -17,7 +17,7 @@ if (isset($_ENV['BOOTSTRAP_FIXTURES_LOAD'])) {
     passthru($command);
     $command = 'php ' . dirname(__DIR__, 1) . '/bin/console doctrine:schema:create --env=test';
     passthru($command);
-    $command = 'php ' . dirname(__DIR__, 1) . '/bin/console doctrine:fixtures:load -n --env=test';
+    $command = 'php ' . dirname(__DIR__, 1) . '/bin/console doctrine:fixtures:load -n --group=AppFixtures --env=test';
     passthru($command);
 }
 
