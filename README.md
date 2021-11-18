@@ -61,5 +61,6 @@ Username : root
 
 Password : root
 
+You can then create a new Admin and delete the root account.
 ## Contribute
 To help the project you can contribute ! See how to [here](https://github.com/iBast/BastienMunck_P8_20211012/blob/main/CONTRIBUTING.md)
