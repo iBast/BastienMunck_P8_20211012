@@ -64,12 +64,16 @@ class TaskVoter extends Voter
 
     public function canRead(Task $task, User $user)
     {
-        return true;
+        if (in_array('ROLE_USER', $user->getRoles())) {
+            return true;
+        }
     }
 
     public function canUpdate(Task $task, User $user)
     {
-        return $this->canCreate($user);
+        if (in_array('ROLE_USER', $user->getRoles())) {
+            return true;
+        }
     }
 
     public function canDelete(Task $task, User $user)
@@ -82,7 +86,6 @@ class TaskVoter extends Voter
 
             return true;
         }
-        return false;
     }
 
     public function canCreate(User $user)
@@ -90,6 +93,5 @@ class TaskVoter extends Voter
         if (in_array('ROLE_USER', $user->getRoles())) {
             return true;
         }
-        return false;
     }
 }
