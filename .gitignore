@@ -20,3 +20,6 @@
 ###< phpunit/phpunit ###
 
 /tests/coverage
+
+.DS_Store
+tests/.DS_Store
